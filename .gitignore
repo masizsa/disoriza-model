@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+env/
+venv/
+*.env
+*.venv
+
+# Flask specific
+instance/
+*.sqlite3
+*.db
+
+# Static file uploads
+/static/uploads/*
+
+# Python logs
+*.log
+
+# YOLOv5 specific
+yolov5/runs/
+yolov5/exp*/  # YOLOv5 experiment directories
+yolov5/weights/
+
+# TFLite model files
+/models/*.tflite
+/models/*.pt
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+*.code-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
