@@ -14,8 +14,8 @@ instance/
 *.sqlite3
 *.db
 
-# Static file uploads
-/static/uploads/*
+# # Static file uploads
+# /static/uploads/*
 
 # Python logs
 *.log
