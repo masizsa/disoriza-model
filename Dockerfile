@@ -1,14 +1,15 @@
-# Gunakan base image Python
-FROM python:3.9-slim
+# Gunakan Python 3.8 sebagai base image
+FROM python:3.8-slim
 
 # Set work directory
 WORKDIR /app
 
-# Install dependencies sistem
+# Install dependensi sistem yang diperlukan untuk Torch dan lainnya
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
-    git \
+    libopenblas-dev \
+    libomp-dev \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
@@ -19,13 +20,13 @@ RUN apt-get update && apt-get install -y \
 # Salin file requirements.txt
 COPY requirements.txt /app/requirements.txt
 
-# Install torch dari URL PyTorch
-RUN pip install --no-cache-dir torch torchvision -f https://download.pytorch.org/whl/torch_stable.html
+# Install torch dan torchvision dari index PyTorch
+RUN pip install --no-cache-dir torch==1.10.2+cpu torchvision==0.11.3+cpu -f https://download.pytorch.org/whl/torch_stable.html
 
-# Install dependensi lain
+# Install dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Salin semua file proyek
+# Salin seluruh file proyek ke dalam kontainer
 COPY . /app
 
 # Expose port Flask
