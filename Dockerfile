@@ -20,9 +20,6 @@ RUN apt-get update && apt-get install -y \
 # Salin file requirements.txt
 COPY requirements.txt /app/requirements.txt
 
-# Install torch dan torchvision dari index PyTorch
-RUN pip install --no-cache-dir torch==1.10.2+cpu torchvision==0.11.3+cpu -f https://download.pytorch.org/whl/torch_stable.html
-
 # Install dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt
 

@@ -1,12 +1,16 @@
-version: '3.8'
+version: "3.8"
 
 services:
   dizoriza-app:
     build:
-      context: .
+      context: .  # Lokasi Dockerfile
+      dockerfile: Dockerfile
+    container_name: dizoriza-app
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Menghubungkan port Flask di dalam kontainer ke host
     volumes:
-      - ./static/results:/app/static/results
-      - ./static/uploads:/app/static/uploads
-    restart: always
+      - ./static/uploads:/app/static/uploads  # Untuk file yang di-upload
+      - ./static/results:/app/static/results  # Untuk output model
+    environment:
+      - FLASK_ENV=production  # Ubah ke "development" jika debugging
+    restart: unless-stopped
