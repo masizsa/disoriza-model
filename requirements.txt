@@ -1,8 +1,8 @@
 flask
-torch
-numpy
+# torch
+# numpy
 tensorflow
-pillow
+# pillow
 # YOLOv5 requirements
 # Usage: pip install -r requirements.txt
 
