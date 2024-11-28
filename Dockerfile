@@ -38,4 +38,4 @@ COPY . /app
 EXPOSE 5000
 
 # Perintah untuk menjalankan aplikasi
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
