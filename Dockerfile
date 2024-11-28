@@ -4,7 +4,7 @@ FROM python:3.8-slim
 # Set work directory
 WORKDIR /app
 
-# Install dependensi sistem yang diperlukan untuk Torch, OpenCV, dan lainnya
+# Install dependensi sistem yang diperlukan untuk Torch dan lainnya
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     wget \
-    libgl1-mesa-glx \
     libc6-dev \
     gfortran \
     libatlas-base-dev && \
@@ -33,5 +32,5 @@ COPY . /app
 # Expose port Flask
 EXPOSE 5000
 
-# Perintah untuk menjalankan aplikasi
-CMD ["python3", "app.py"]
+# Perintah untuk menjalankan aplikasi dengan Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
