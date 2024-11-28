@@ -4,7 +4,7 @@ FROM python:3.8-slim
 # Set work directory
 WORKDIR /app
 
-# Install dependensi sistem yang diperlukan untuk Torch dan lainnya
+# Install dependensi sistem yang diperlukan untuk Torch, TensorFlow dan lainnya
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -14,13 +14,16 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxext6 \
     libxrender-dev \
-    wget && \
+    wget \
+    libc6-dev \
+    gfortran \
+    libatlas-base-dev && \
     apt-get clean
 
 # Salin file requirements.txt
 COPY requirements.txt /app/requirements.txt
 
-# Install dependensi lainnya
+# Install dependensi Python dari requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Salin seluruh file proyek ke dalam kontainer
