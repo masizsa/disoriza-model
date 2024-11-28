@@ -5,7 +5,7 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Install dependensi sistem yang diperlukan untuk Torch, TensorFlow dan lainnya
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt  install -y \
     build-essential \
     cmake \
     libopenblas-dev \
