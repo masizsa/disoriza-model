@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libatlas-base-dev \
-    libgl1-mesa-glx \  # Tambahkan ini untuk mengatasi error libGL.so.1
+    libgl1-mesa-glx \
     wget \
     gfortran && \
     apt-get clean
