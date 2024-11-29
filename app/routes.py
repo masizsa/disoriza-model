@@ -26,7 +26,9 @@ def detect():
         label, confidence = classify_disease( image_path)
         disease_results.append({'label': label, 'confidence': confidence})
 
-        return ({'detections': detections, 'disease_results': disease_results})
+        # return ({'detections': detections, 'disease_results': disease_results})
+        # return ({'detections': detections})
+        return ({'disease_results': disease_results})
     else:
         return jsonify({'message': 'No rice leaf detected'}), 200
     
