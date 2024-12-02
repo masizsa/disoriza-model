@@ -37,6 +37,8 @@ from pathlib import Path
 
 import torch
 
+import shutil
+
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
@@ -158,8 +160,13 @@ def run(
         source = check_file(source)  # download
 
     # Directories
-    save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
-    (save_dir / "labels" if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+    # save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
+    # (save_dir / "labels" if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
+    if not nosave:
+        save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # Increment path
+        (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True) # make dir
+    else:
+        save_dir = None
 
     # Load model
     device = select_device(device)
@@ -318,6 +325,9 @@ def run(
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
+
+    shutil.rmtree('runs/detect/exp', ignore_errors=True)
+    LOGGER.info(f"Results successfully deleted from {colorstr('bold', str(save_dir))}")
 
 
 def parse_opt():
