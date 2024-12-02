@@ -9,7 +9,7 @@ bp = Blueprint('routes', __name__)
 @bp.route('/detect', methods=['POST'])
 def detect():
     if 'image' not in request.files:
-        return jsonify({'error': 'No image file provided'}), 400
+        return jsonify({"status": "error","message": "Gambar tidak ditemukan.","data": None}), 400
 
     # Simpan gambar yang diunggah
     image = request.files['image']
@@ -21,21 +21,29 @@ def detect():
     detections = detect_padi(image_path)
 
     if detections:
-        disease_results = []
+        # disease_results = []
 
         # Jalankan identifikasi penyakit pada setiap deteksi
         label, confidence = classify_disease(image_path)
-        disease_results.append({'label': label, 'confidence': confidence})
+
+        # disease_results.append({'label': label, 'confidence': confidence})
 
         # Hapus folder ./static/uploads/ dan ./static/results/
         for folder in ['./static/uploads', './static/results']:
             if os.path.exists(folder):
                 shutil.rmtree(folder)
 
-        return jsonify({'disease_results': disease_results})
+        if (label=='healthy'):
+            return jsonify({"status": "success", "message": "Padi yang dipindai sehat.", "data": None}), 201
+
+        return jsonify({"status": "success", "message": "Padi yang dipindai memiliki penyakit.", 
+                        "data": { 
+                            "label": label, 
+                            "confidence": confidence }
+                        })
     else:
         for folder in ['./static/uploads', './static/results']:
             if os.path.exists(folder):
                 shutil.rmtree(folder)
 
-        return jsonify({'message': 'No rice leaf detected'}), 200
+        return jsonify({"status": "error", "message": "Tidak dapat mendeteksi daun padi pada foto.", "data": None}), 202
