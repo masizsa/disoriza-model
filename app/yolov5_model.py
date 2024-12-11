@@ -25,7 +25,7 @@ def detect_padi(image_path):
         project=results_path, 
         save_txt=True, 
         save_conf=True, 
-        conf_thres=0.2, 
+        conf_thres=0.5, 
         name=experiment_name)
 
     exts = ['.jpg', '.webp', '.jpeg']
